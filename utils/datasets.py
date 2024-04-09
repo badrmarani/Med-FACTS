@@ -6,6 +6,7 @@ from argparse import Namespace
 from torch.utils.data import DataLoader, ConcatDataset, BatchSampler, RandomSampler, WeightedRandomSampler
 import torch
 from data.nico_plus_plus import get_datasets as get_nico_plus_plus_datasets
+from data.chexpert import get_chexpert_datasets
 import os
 from scipy import signal
 
@@ -139,6 +140,9 @@ def get_loaders(args, datasets):
     return loaders, loaders_len
 
 def get_dataset(args):
+    if args.dataset_name == "chexpert":
+        train_dataset, val_dataset, target_dataset = get_chexpert_datasets(args)
+        return [train_dataset,  target_dataset, val_dataset, None]
     if args.dataset_name in ['waterbirds', 'celeba']:
         train_dataset, val_dataset, target_dataset = get_jtt_datasets(args)
         return [train_dataset,  target_dataset, val_dataset, None]

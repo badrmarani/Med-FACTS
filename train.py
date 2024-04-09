@@ -43,6 +43,7 @@ nico_plus_plus_datasets = [
 ]
 
 DATASETS_WITH_CTXS = [
+    "chexpert",
     "waterbirds",
     "celeba",
     "ffcv_celeba",
@@ -90,6 +91,7 @@ def init_configs():
                 str,
                 OneOf(
                     [
+                        "chexpert",
                         "waterbirds",
                         "celeba",
                         "ffcv_celeba",
@@ -134,7 +136,7 @@ def get_dataloaders(
 ):
     if "ffcv" in dataset_name:
         raise NotImplementedError
-    elif dataset_name in ["waterbirds", "celeba", *nico_plus_plus_datasets]:
+    elif dataset_name in ["chexpert", "waterbirds", "celeba", *nico_plus_plus_datasets]:
         return get_loaders_for_training(args)
 
 
