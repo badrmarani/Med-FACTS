@@ -36,7 +36,7 @@ class ResNet(nn.Module):
         out = self.linear(out)
         return out
 
-def construct_model(arch=None, num_classes=10, load_ckpt_path='', pretrained=False):
+def construct_model(arch=None, num_classes=10, load_ckpt_path='', pretrained=False, device_id: int = 0):
     if 'resnet' in arch:
         model = ResNet(arch, num_classes=num_classes, pretrained=pretrained)
     else:
@@ -46,5 +46,7 @@ def construct_model(arch=None, num_classes=10, load_ckpt_path='', pretrained=Fal
             model.featurizer.load_state_dict(ch.load(load_ckpt_path))
         except:
             model.load_state_dict(ch.load(load_ckpt_path))
-    model = model.cuda()
+    # model = model.cuda()
+    model = nn.DataParallel(model, device_ids=[0, 1, 2, 3])
+    model.to(device=f"cuda:{device_id}")
     return model
