@@ -577,6 +577,7 @@ if __name__ == "__main__":
             arguments.data.num_classes,
             load_ckpt_path=arguments.training.load_ckpt_path,
             pretrained=arguments.training.pretrained,
+            dataset_name=arguments.data.dataset_name,
         )
 
         start_epoch = 0
