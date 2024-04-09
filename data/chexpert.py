@@ -36,6 +36,7 @@ class CheXpert(Dataset):
     def __init__(self, csv_path, images_path, stage, target_class_name, args=None):
         self.df = pd.read_csv(csv_path)
         self.df = self.df[(self.df["AP/PA"] == "AP") | (self.df["AP/PA"] == "PA")]
+        self.df = self.df[self.df["Frontal/Lateral"] == "Frontal"]
         self.df["Path"] = self.df["Path"].str.replace(
             "CheXpert-v1.0-small/train",
             os.path.join(images_path, stage)
