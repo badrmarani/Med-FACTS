@@ -77,7 +77,7 @@ class CheXpert(Dataset):
         
         # Get labels from the dataframe for current image
         label = self.df.iloc[index][self.target_class_name]
-        label = torch.tensor(label, dtype=torch.float32)
+        label = torch.tensor(label, dtype=torch.long)
         spurious_attr = self.df.iloc[index]["Contamination"]
         spurious_attr = torch.tensor(spurious_attr, dtype=torch.float32)
 
